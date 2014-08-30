@@ -1,0 +1,5 @@
+app/
+.idea/
+*.tgz
+.npmignore
+Gruntfile.js
