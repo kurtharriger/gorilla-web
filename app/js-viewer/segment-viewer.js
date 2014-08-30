@@ -4,6 +4,7 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
+var worksheet = require('./worksheet-viewer');
 // Stripped down segment viewmodels for the viewer.
 
 // a code segment contains code, and shows the results of running that code.

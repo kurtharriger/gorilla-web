@@ -4,8 +4,13 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
+var utils = require('./utils');
+var codemirrorVM = require("./codemirrorVM");
+var worksheet = require('./worksheet');
+
 // a code segment contains code, and shows the results of running that code.
 module.exports.codeSegment = function (contents, consoleText, output) {
+    var eventBus = require('./eventBus');
     var self = {};
     self.renderTemplate = "code-segment-template";
     self.worksheet = worksheet;
@@ -80,6 +85,8 @@ module.exports.codeSegment = function (contents, consoleText, output) {
 
 // a free segment contains markdown
 module.exports.freeSegment = function (contents) {
+  var eventBus = require('./eventBus');
+
     var self = {};
     self.renderTemplate = "free-segment-template";
     self.id = UUID.generate();

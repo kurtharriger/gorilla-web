@@ -6,7 +6,8 @@
 
 
 module.exports = function () {
-
+    var eventBus = require('./eventBus');
+    var repl = require('./repl-ws');
     var self = {};
 
     // This maps evaluation IDs to the IDs of the segment that initiated them.

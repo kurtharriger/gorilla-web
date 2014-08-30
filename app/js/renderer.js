@@ -4,60 +4,26 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
-/* Takes a data structure representing the output data and renders it in to the given element. */
-module.exports.render = function (data, element, errorCallback) {
-    // Some parts of the output might need to run js functions to complete the rendering (like Vega graphs for instance)
-    // We maintain a list of those functions that we accumulate as we put together the HTML, and then call them all
-    // after the HTML has been inserted into the document.
-    var callbackQueue = [];
-    var htmlString = renderPart(data, callbackQueue, errorCallback);
-    $(element).html("<pre>" + htmlString + "</pre>");
-    _.each(callbackQueue, function (callback) {callback()});
-
-    // Attach a click event handler to each element for value copy and paste.
-    $(".value", element).click(function (ed) {
-        if (ed.altKey) {
-            var value = $(this).attr('data-value');
-            eventBus.trigger("app:show-value", value);
-        }
-        return false;
-    });
-};
-
-
-module.exports.renderPart = function (data, callbackQueue, errorCallback) {
-
-    switch (data.type) {
-        case "html":
-            return renderHTML(data, callbackQueue, errorCallback);
-        case "list-like":
-            return renderListLike(data, callbackQueue, errorCallback);
-        case "vega":
-            return renderVega(data, callbackQueue, errorCallback);
-        case "latex":
-            return renderLatex(data, callbackQueue, errorCallback);
-    }
-
-    return "Unknown render type";
-};
+var eventBus = require('./eventBus');
+var _ = require('lodash');
 
 // This helper supports value copy and paste.
-module.exports.wrapWithValue = function (data, content) {
+var wrapWithValue = function(data, content) {
     return "<span class='value' data-value='" + _.escape(data.value) + "'>" + content + "</span>";
 };
 
-module.exports.renderHTML = function (data, callbackQueue, errorCallback) {
+var renderHTML = function(data, callbackQueue, errorCallback) {
     return wrapWithValue(data, data.content);
 };
 
-module.exports.renderListLike = function (data, callbackQueue, errorCallback) {
+var renderListLike = function(data, callbackQueue, errorCallback) {
     // first of all render the items
     var renderedItems = data.items.map(function (x) {return renderPart(x, callbackQueue, errorCallback)});
     // and then assemble the list
     return wrapWithValue(data, data.open + renderedItems.join(data.separator) + data.close);
 };
 
-module.exports.renderVega = function (data, callbackQueue, errorCallback) {
+var renderVega = function (data, callbackQueue, errorCallback) {
 
     var uuid = UUID.generate();
 
@@ -84,7 +50,7 @@ module.exports.renderVega = function (data, callbackQueue, errorCallback) {
     return wrapWithValue(data, "<span class='vega-span' id='" + uuid + "'></span>");
 };
 
-module.exports.renderLatex = function (data, callbackQueue, errorCallback) {
+ var renderLatex = function (data, callbackQueue, errorCallback) {
 
     var uuid = UUID.generate();
 
@@ -93,4 +59,40 @@ module.exports.renderLatex = function (data, callbackQueue, errorCallback) {
     });
 
     return wrapWithValue(data, "<span class='latex-span' id='" + uuid + "'>@@" + data.content + "@@</span>");
+};
+
+var renderPart = function(data, callbackQueue, errorCallback) {
+
+  switch (data.type) {
+    case "html":
+      return renderHTML(data, callbackQueue, errorCallback);
+    case "list-like":
+      return renderListLike(data, callbackQueue, errorCallback);
+    case "vega":
+      return renderVega(data, callbackQueue, errorCallback);
+    case "latex":
+      return renderLatex(data, callbackQueue, errorCallback);
+  }
+
+  return "Unknown render type";
+};
+
+/* Takes a data structure representing the output data and renders it in to the given element. */
+module.exports.render = function (data, element, errorCallback) {
+  // Some parts of the output might need to run js functions to complete the rendering (like Vega graphs for instance)
+  // We maintain a list of those functions that we accumulate as we put together the HTML, and then call them all
+  // after the HTML has been inserted into the document.
+  var callbackQueue = [];
+  var htmlString = renderPart(data, callbackQueue, errorCallback);
+  $(element).html("<pre>" + htmlString + "</pre>");
+  _.each(callbackQueue, function (callback) {callback()});
+
+  // Attach a click event handler to each element for value copy and paste.
+  $(".value", element).click(function (ed) {
+    if (ed.altKey) {
+      var value = $(this).attr('data-value');
+      eventBus.trigger("app:show-value", value);
+    }
+    return false;
+  });
 };

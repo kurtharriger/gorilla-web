@@ -7,6 +7,10 @@
 // Takes the REPL output and views it. The real work is handed over to the renderer, the outputViewer handles parsing
 // the data, errors etc.
 
+var eventBus = require('./eventBus');
+var utils = require('./utils');
+var renderer = require('./renderer');
+
 ko.bindingHandlers.outputViewer = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
     },
@@ -26,7 +30,7 @@ ko.bindingHandlers.outputViewer = {
             try {
                 var parsedValue = JSON.parse(value);
                 // The renderer does all of the real work
-                render(parsedValue, element, errorHandler);
+              renderer.render(parsedValue, element, errorHandler);
             } catch (e) {
                 // as a fallback, we display the value directly if we can't parse it as json. This also at least
                 // allows worksheets that pre-date the new renderer to load, even if they look ugly!

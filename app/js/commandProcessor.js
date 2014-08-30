@@ -8,7 +8,9 @@
 // appropriate component.
 
 module.exports = (function () {
-
+    var _ = require('lodash');
+    var eventBus = require('./eventBus');
+    var commandList = require('./commandList').commandList;
     var self = {};
 
     // ** Patch Mousetrap **

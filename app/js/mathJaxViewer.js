@@ -4,6 +4,8 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
+var utils = require('./utils');
+
 // This defines a very simple binding that displays its value, and on every update
 // asks MathJax to reprocess the output.
 ko.bindingHandlers.mathJaxViewer = {

@@ -12,6 +12,8 @@
 // include this id in the events it raises.
 
 module.exports = function (id, initialContents, contentType) {
+    var eventBus = require('./eventBus');
+    var utils = require('./utils');
     var self = {};
     self.id = id;
     self.contentType = contentType;

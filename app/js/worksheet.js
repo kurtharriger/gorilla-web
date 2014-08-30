@@ -8,10 +8,17 @@
 // active segment, and the position of the editor cursors, is in the worksheet, as it needs to know about the
 // relationship between the segments.
 module.exports = function () {
+    var _ = require('lodash');
+    var clojureCompleter = require("./completions");
+    var eventBus = require('./eventBus');
     var self = {};
+    var segment = require('./segment');
+
+    self.segment = segment;
 
     // the content of the worksheet is a list of segments.
     self.segments = ko.observableArray();
+
 
     // serialises the worksheet for saving. The result is valid clojure code, marked up with some magic comments.
     self.toClojure = function () {
@@ -64,7 +71,7 @@ module.exports = function () {
     self.insertNewSegment = function (offset) {
         // do nothing if no segment is active
         if (self.activeSegmentIndex == null) return;
-        var seg = codeSegment("");
+        var seg = segment.codeSegment("");
         var currentIndex = self.activeSegmentIndex;
         self.deactivateSegment(currentIndex);
         self.segments.splice(currentIndex + offset, 0, seg);
@@ -190,11 +197,11 @@ module.exports = function () {
         };
 
         addEventHandler("worksheet:changeToFree", function () {
-            changeActiveSegmentType("free", freeSegment);
+            changeActiveSegmentType("free", segment.freeSegment);
         });
 
         addEventHandler("worksheet:changeToCode", function () {
-            changeActiveSegmentType("code", codeSegment);
+            changeActiveSegmentType("code", segment.codeSegment);
         });
 
 

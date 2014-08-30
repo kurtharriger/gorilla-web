@@ -6,8 +6,9 @@
 
 // A websocket connection to the repl. Works with `gorilla-repl.websocket-relay` on the backend.
 
-module.exports = (function () {
-
+module.exports = (function (self) {
+    var cljserver = require('./cljserver');
+    var eventBus = require('./eventBus');
     var self = {};
 
     self.sendREPLCommand = function (message) {
@@ -22,7 +23,7 @@ module.exports = (function () {
 
     // TODO: handle errors.
     self.connect = function (successCallback, failureCallback) {
-        var url = window.cljserver.replace(/^https?:/, "ws:") + "/repl";
+        var url = cljserver.replace(/^https?:/, "ws:") + "/repl";
         self.ws = new WebSocket(url);
 
         // we first install a handler that will capture the session id from the clone message. Once it's done its work

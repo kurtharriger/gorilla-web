@@ -1,4 +1,5 @@
 module.exports = (function() {
+  var eventBus = require('./eventBus');
 
   // The list of commands. These could be located with the components they belong to if the list gets too unwieldy,
   // but for now they're fine together here.

@@ -5,6 +5,8 @@
  */
 
 module.exports = function (cm, options) {
+    var evaluator = require("./evaluator");
+
     // The gist of this is lifted from the auto-completion modes included with CodeMirror.
     var cur = cm.getCursor();
     var token = cm.getTokenAt(cur);
