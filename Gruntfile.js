@@ -18,11 +18,15 @@ module.exports = function (grunt) {
     webpack: {
       dist: {
         context: __dirname + '/app/',
-        entry: './worksheet.js',
-        cache: true,
-        output: {
-          path: 'dist/_js'
+        entry: {
+          'worksheet.js': './js/entry-worksheet.js',
+          'viewer.js': './js/entry-viewer.js'
         },
+        output: {
+          path: 'dist/',
+          filename: '_js/[name]'
+        },
+        cache: true,
 
         resolve: {
           modulesDirectories: [ "node_modules", "web_modules"],
@@ -61,7 +65,14 @@ module.exports = function (grunt) {
         port: 8991,
         webpack: {
           context: __dirname + '/app/',
-          entry: './worksheet.js',
+          entry: {
+            'worksheet.js': './js/entry-worksheet.js',
+            'viewer.js': './js/entry-viewer.js'
+          },
+          output: {
+            path: 'app/',
+            filename: '_js/[name]'
+          },
 
           cache: true,
           debug: true,
