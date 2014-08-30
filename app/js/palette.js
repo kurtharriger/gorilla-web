@@ -8,7 +8,7 @@
 // There is one palette viewmodel held by the app, corresponding to the palette div in the markup. It is reused each
 // time it is shown. The only function that you should need to use is the `show` function, which brings up the palette.
 
-var palette = function () {
+module.exports = function () {
 
     var self = {};
 

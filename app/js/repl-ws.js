@@ -6,7 +6,7 @@
 
 // A websocket connection to the repl. Works with `gorilla-repl.websocket-relay` on the backend.
 
-var repl = (function () {
+module.exports = (function () {
 
     var self = {};
 

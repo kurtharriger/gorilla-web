@@ -5,7 +5,7 @@
  */
 
 
-var evaluator = function () {
+module.exports = function () {
 
     var self = {};
 

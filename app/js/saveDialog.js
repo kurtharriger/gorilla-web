@@ -6,7 +6,7 @@
 
 // The viewmodel for the save dialog user interface component.
 
-var saveDialog = function (callback) {
+module.exports = function (callback) {
 
     var self = {};
 

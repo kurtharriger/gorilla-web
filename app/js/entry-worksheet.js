@@ -18,21 +18,29 @@ require("script!../jslib/vega/vega.1.3.3.min.js");
 require("script!../jslib/uuid/uuid.core.js");
 require("script!../jslib/mousetrap/mousetrap.min.js");
 
-require('script!./cljserver');
-require("script!./eventbus.js");
-require("script!./commandProcessor.js");
-require("script!./repl-ws.js");
-require("script!./utils.js");
-require("script!./worksheetParser.js");
-require("script!./evaluator.js");
-require("script!./codemirrorVM.js");
-require("script!./completions.js");
-require("script!./mathJaxViewer.js");
-require("script!./outputViewer.js");
-require("script!./renderer.js");
-require("script!./segment.js");
-require("script!./worksheet.js");
-require("script!./palette.js");
-require("script!./saveDialog.js");
-require("script!./codeDialog.js");
+var _ = require('lodash');
+
+var root = window;
+root.cljserver = require('./cljserver');
+root.eventBus = require("./eventbus.js");
+_.merge(root, require("./commandList.js"));
+
+root.commandProcessor = require("./commandProcessor.js");
+root.repl = require("./repl-ws.js");
+root.utils = require("./utils.js");
+root.worksheetParser = require("./worksheetParser.js");
+root.evaluator = require("./evaluator.js");
+root.codemirrorVM = require("./codemirrorVM.js");
+root.clojureCompleter = require("./completions.js");
+
+_.merge(root, require("./renderer.js"));
+_.merge(root, require("./segment.js"));
+root.worksheet = require("./worksheet.js");
+root.palette = require("./palette.js");
+root.saveDialog = require("./saveDialog.js");
+root.codeDialog = require("./codeDialog.js");
+
+
+require("./mathJaxViewer.js");
+require("./outputViewer.js");
 require("./main.js");

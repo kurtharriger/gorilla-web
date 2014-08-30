@@ -5,7 +5,7 @@
  */
 
 // a code segment contains code, and shows the results of running that code.
-var codeSegment = function (contents, consoleText, output) {
+module.exports.codeSegment = function (contents, consoleText, output) {
     var self = {};
     self.renderTemplate = "code-segment-template";
     self.worksheet = worksheet;
@@ -70,8 +70,8 @@ var codeSegment = function (contents, consoleText, output) {
         var consoleEnd = "\n;; <-\n";
         var cText = "";
         var oText = "";
-        if (self.consoleText() !== "") cText = consoleStart + makeClojureComment(self.consoleText()) + consoleEnd;
-        if (self.output() !== "") oText = outputStart + makeClojureComment(self.output()) + outputEnd;
+        if (self.consoleText() !== "") cText = consoleStart + utils.makeClojureComment(self.consoleText()) + consoleEnd;
+        if (self.output() !== "") oText = outputStart + utils.makeClojureComment(self.output()) + outputEnd;
         return startTag + self.getContents() + endTag + cText + oText;
     };
 
@@ -79,7 +79,7 @@ var codeSegment = function (contents, consoleText, output) {
 };
 
 // a free segment contains markdown
-var freeSegment = function (contents) {
+module.exports.freeSegment = function (contents) {
     var self = {};
     self.renderTemplate = "free-segment-template";
     self.id = UUID.generate();
@@ -137,7 +137,7 @@ var freeSegment = function (contents) {
     // serialises the segment for saving. The result is valid clojure code, marked up with some magic comments.
     self.toClojure = function () {
         var tag = ";; **\n";
-        return tag + makeClojureComment(self.getContents()) + "\n" + tag;
+        return tag + utils.makeClojureComment(self.getContents()) + "\n" + tag;
     };
 
 

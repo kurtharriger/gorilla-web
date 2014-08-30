@@ -17,14 +17,14 @@ segmentWithBlankLine = seg:segment lineEnd? {return seg;}
 segment = freeSegment / codeSegment
 
 freeSegment = freeSegmentOpenTag content:stringNoDelim? freeSegmentCloseTag
-                {return freeSegment(unmakeClojureComment(content));}
+                {return freeSegment(utils.unmakeClojureComment(content));}
 
 freeSegmentOpenTag = ";; **" lineEnd
 
 freeSegmentCloseTag = lineEnd ";; **" lineEnd
 
 codeSegment = codeSegmentOpenTag content:stringNoDelim? codeSegmentCloseTag cs:consoleSection? out:outputSection?
-                {return codeSegment(content, unmakeClojureComment(cs), unmakeClojureComment(out));}
+                {return codeSegment(content, utils.unmakeClojureComment(cs), utils.unmakeClojureComment(out));}
 
 codeSegmentOpenTag = ";; @@" lineEnd
 

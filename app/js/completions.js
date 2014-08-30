@@ -4,7 +4,7 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
-var clojureCompleter = function (cm, options) {
+module.exports = function (cm, options) {
     // The gist of this is lifted from the auto-completion modes included with CodeMirror.
     var cur = cm.getCursor();
     var token = cm.getTokenAt(cur);

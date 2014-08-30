@@ -1,5 +1,5 @@
 
-var cljserver = (function () {
+module.exports = (function () {
   var loc = window.location;
   var server = (loc.search.match(/server=([^&]*)/) || "").slice(1);
   if(server) {
@@ -9,3 +9,4 @@ var cljserver = (function () {
     return loc.protocol + "//" + loc.hostname + ":" + loc.port;
   }
 })();
+

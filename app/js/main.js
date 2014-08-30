@@ -75,7 +75,7 @@ var app = function () {
                 "for more commands ...\n\nIt's a good habit to run each worksheet in its own namespace: feel " +
                 "free to use the declaration we've provided below if you'd like.")
         );
-        ws.segments().push(codeSegment("(ns " + makeHipNSName() + "\n  (:require [gorilla-plot.core :as plot]))"));
+        ws.segments().push(codeSegment("(ns " + utils.makeHipNSName() + "\n  (:require [gorilla-plot.core :as plot]))"));
         self.setWorksheet(ws, "");
         // make it easier for the user to get started by highlighting the empty code segment
         eventBus.trigger("worksheet:segment-clicked", {id: self.worksheet().segments()[1].id});

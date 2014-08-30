@@ -7,7 +7,7 @@
 // Stripped down segment viewmodels for the viewer.
 
 // a code segment contains code, and shows the results of running that code.
-var codeSegment = function (contents, consoleText, output) {
+module.exports.codeSegment = function (contents, consoleText, output) {
     var self = {};
     self.renderTemplate = "code-segment-template";
     self.worksheet = worksheet;
@@ -28,7 +28,7 @@ var codeSegment = function (contents, consoleText, output) {
 };
 
 // a free segment contains markdown
-var freeSegment = function (contents) {
+module.exports.freeSegment = function (contents) {
     var self = {};
     self.renderTemplate = "free-segment-template";
     self.id = UUID.generate();

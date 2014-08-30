@@ -4,9 +4,8 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
-
 /* Takes a data structure representing the output data and renders it in to the given element. */
-var render = function (data, element, errorCallback) {
+module.exports.render = function (data, element, errorCallback) {
     // Some parts of the output might need to run js functions to complete the rendering (like Vega graphs for instance)
     // We maintain a list of those functions that we accumulate as we put together the HTML, and then call them all
     // after the HTML has been inserted into the document.
@@ -26,7 +25,7 @@ var render = function (data, element, errorCallback) {
 };
 
 
-var renderPart = function (data, callbackQueue, errorCallback) {
+module.exports.renderPart = function (data, callbackQueue, errorCallback) {
 
     switch (data.type) {
         case "html":
@@ -43,22 +42,22 @@ var renderPart = function (data, callbackQueue, errorCallback) {
 };
 
 // This helper supports value copy and paste.
-var wrapWithValue = function (data, content) {
+module.exports.wrapWithValue = function (data, content) {
     return "<span class='value' data-value='" + _.escape(data.value) + "'>" + content + "</span>";
 };
 
-var renderHTML = function (data, callbackQueue, errorCallback) {
+module.exports.renderHTML = function (data, callbackQueue, errorCallback) {
     return wrapWithValue(data, data.content);
 };
 
-var renderListLike = function (data, callbackQueue, errorCallback) {
+module.exports.renderListLike = function (data, callbackQueue, errorCallback) {
     // first of all render the items
     var renderedItems = data.items.map(function (x) {return renderPart(x, callbackQueue, errorCallback)});
     // and then assemble the list
     return wrapWithValue(data, data.open + renderedItems.join(data.separator) + data.close);
 };
 
-var renderVega = function (data, callbackQueue, errorCallback) {
+module.exports.renderVega = function (data, callbackQueue, errorCallback) {
 
     var uuid = UUID.generate();
 
@@ -85,7 +84,7 @@ var renderVega = function (data, callbackQueue, errorCallback) {
     return wrapWithValue(data, "<span class='vega-span' id='" + uuid + "'></span>");
 };
 
-var renderLatex = function (data, callbackQueue, errorCallback) {
+module.exports.renderLatex = function (data, callbackQueue, errorCallback) {
 
     var uuid = UUID.generate();
 

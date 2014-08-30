@@ -7,7 +7,7 @@
 // This viewmodel represents the worksheet document itself. Code to manage the "cursor" that is, the highlight on the
 // active segment, and the position of the editor cursors, is in the worksheet, as it needs to know about the
 // relationship between the segments.
-var worksheet = function () {
+module.exports = function () {
     var self = {};
 
     // the content of the worksheet is a list of segments.

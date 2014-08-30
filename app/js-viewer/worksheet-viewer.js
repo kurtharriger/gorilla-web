@@ -6,7 +6,7 @@
 
 // A stripped down worksheet viewmodel for the viewer.
 
-var worksheet = function () {
+module.exports = function () {
     var self = {};
 
     // the content of the worksheet is a list of segments.

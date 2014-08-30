@@ -60,14 +60,13 @@ module.exports = function (grunt) {
       start: {
         keepalive: true,
         hot: true,
-        inline: true,
         contentBase: 'app/',
         port: 8991,
         webpack: {
           context: __dirname + '/app/',
           entry: {
-            'worksheet.js': './js/entry-worksheet.js',
-            'viewer.js': './js/entry-viewer.js'
+            'worksheet.js': ["webpack-dev-server/client?http://localhost:8991", 'webpack/hot/dev-server', './js/entry-worksheet.js'],
+            'viewer.js': ["webpack-dev-server/client?http://localhost:8991", 'webpack/hot/dev-server','./js/entry-viewer.js']
           },
           output: {
             path: 'app/',

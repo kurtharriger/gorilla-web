@@ -6,4 +6,4 @@
 
 // The event bus is nothing more than a jquery selection that can be used to register and trigger events.
 
-var eventBus = $({});
+module.exports = $({});

@@ -11,7 +11,7 @@
 // is entering or leaving the editor, or if a segment should be deleted. The editor must be given an id, and it will
 // include this id in the events it raises.
 
-var codemirrorVM = function (id, initialContents, contentType) {
+module.exports = function (id, initialContents, contentType) {
     var self = {};
     self.id = id;
     self.contentType = contentType;

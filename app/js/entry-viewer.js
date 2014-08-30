@@ -11,12 +11,19 @@ require("script!../jslib/d3/d3.v3.min.js");
 require("script!../jslib/d3/d3.geo.projection.min.js");
 require("script!../jslib/vega/vega.1.3.3.min.js");
 require("script!../jslib/uuid/uuid.core.js");
-require("script!../js/worksheetParser.js");
-require("script!../js/utils.js");
-require("script!../js/mathJaxViewer.js");
-require("script!../js/outputViewer.js");
-require("script!../js/renderer.js");
-require("script!../js-viewer/segment-viewer.js");
-require("script!../js-viewer/worksheet-viewer.js");
-require("script!../js-viewer/github.js");
-require("script!../js-viewer/main-viewer.js");
+
+var _ = require('lodash');
+
+var root = window;
+
+root.utils = require("./utils.js");
+_.merge(root, require("./renderer.js"));
+_.merge(root, require("../js-viewer/segment-viewer.js"));
+
+root.worksheet = require("../js-viewer/worksheet-viewer.js");
+_.merge(root, require("../js-viewer/github.js"));
+root.worksheetParser = require("./worksheetParser.js");
+
+require("./mathJaxViewer.js");
+require("./outputViewer.js");
+require("../js-viewer/main-viewer.js");

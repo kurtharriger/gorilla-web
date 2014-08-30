@@ -7,7 +7,7 @@
 // The viewmodel for the code dialog user interface component, used for presenting code to the user (last-chance, value
 // copy-and-paste).
 
-var codeDialog = function () {
+module.exports = function () {
 
     var self = {};
 
