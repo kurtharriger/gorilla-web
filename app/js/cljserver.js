@@ -6,6 +6,6 @@ var cljserver = (function () {
     return server[0];
   } else {
     // if not specified assume running on current port + 1
-    return loc.protocol + "//" + loc.hostname + ":" + (parseInt(loc.port) + 1);
+    return loc.protocol + "//" + loc.hostname + ":" + loc.port;
   }
 })();
