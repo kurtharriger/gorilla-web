@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: kurtharriger@gmail.com
+  api_key:
+    secure: FOBtCYpFQ6lk6m5UsO/9OJfRmQhy4h49uDvRqv3KdylVvAlgjHU1yQq5GnrbaYeYwgIiu9di3xOvvU2aJsU7W9N77mVbhFVWbawwo/1zdq295XLBcE2/W1HXbQp4t+YjGcXIf+kOBUvOYNjEGZl3Mw3upeIeNjPDVikZsjJvQSg=
+  on:
+    tags: true
+    repo: kurtharriger/gorilla-web
