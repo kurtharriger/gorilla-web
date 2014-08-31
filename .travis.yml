@@ -7,4 +7,4 @@ deploy:
   on:
     tags: true
     repo: kurtharriger/gorilla-web
-     all_branches: true
+    all_branches: true
