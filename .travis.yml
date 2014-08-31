@@ -7,3 +7,4 @@ deploy:
   on:
     tags: true
     repo: kurtharriger/gorilla-web
+    branch: master
