@@ -1,6 +1,6 @@
 {
   "name": "gorilla-web",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Gorilla is a rich REPL for Clojure in the notebook style. If you're interested you should take a look at its [website](http://gorilla-repl.org).",
   "scripts": {
     "prepublish": "grunt"
