@@ -17,6 +17,7 @@ require("script!../jslib/vega/vega.1.3.3.min.js");
 require("script!../jslib/uuid/uuid.core.js");
 require("script!../jslib/mousetrap/mousetrap.min.js");
 
+window.$ = window.jQuery = require('jquery');
 
 require("./mathJaxViewer");
 require("./outputViewer");
