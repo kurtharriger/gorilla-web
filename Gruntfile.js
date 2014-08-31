@@ -3,9 +3,19 @@ var webpack = require('webpack');
 module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks("grunt-bower-install-simple");
 
-  grunt.registerTask('default', ['copy:dist', 'webpack:dist']);
+  grunt.registerTask('default', ['bower-install-simple:install', 'copy:dist', 'webpack:dist']);
   grunt.initConfig({
+
+    "bower-install-simple": {
+      options: {
+        color: true,
+        production: true,
+        directory: "./app/bower_components"
+      },
+      install: {}
+    },
 
     copy: {
       dist: {
@@ -29,9 +39,18 @@ module.exports = function (grunt) {
         cache: true,
 
         resolve: {
-          modulesDirectories: [ "node_modules", "web_modules"],
+          modulesDirectories: [ "node_modules", "web_modules", "bower_components"],
           extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
         },
+
+        plugins: [
+          new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+          ),
+          new webpack.optimize.OccurenceOrderPlugin(),
+          new webpack.optimize.DedupePlugin(),
+          new webpack.optimize.UglifyJsPlugin()
+        ],
 
         module: {
           loaders: [
@@ -83,11 +102,14 @@ module.exports = function (grunt) {
           },
 
           resolve: {
-            modulesDirectories: [ "node_modules", "web_modules"],
+            modulesDirectories: [ "node_modules", "web_modules", "bower_components"],
             extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
           },
 
           plugins: [
+            new webpack.ResolverPlugin(
+              new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+            ),
             new webpack.HotModuleReplacementPlugin()
           ],
 

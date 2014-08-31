@@ -1,0 +1,6 @@
+{
+  "name": "gorilla-web",
+  "dependencies": {
+    "MathJax": "~2.4.0"
+  }
+}
