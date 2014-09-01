@@ -297,6 +297,11 @@ module.exports = function () {
         addEventHandler("worksheet:hideCodeSegments", function (e, d) {
           self.hideCodeSegments(!self.hideCodeSegments());
         });
+
+        addEventHandler("worksheet:print", function (e, d) {
+          self.getActiveSegment().deactivate();
+          window.print();
+        });
     };
 
     return self;

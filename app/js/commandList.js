@@ -170,6 +170,15 @@ module.exports = (function() {
       action: function () {
         eventBus.trigger("worksheet:hideCodeSegments");
       }
+    },
+    {
+      name: "command:worksheet:print",
+      desc: "Print worksheet",
+      showInMenu: true,
+      kb: combo('g', 'p'),
+      action: function () {
+        eventBus.trigger("worksheet:print");
+      }
     }
   ];
 
