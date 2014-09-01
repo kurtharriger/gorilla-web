@@ -9,6 +9,7 @@
 // relationship between the segments.
 module.exports = function () {
     var _ = require('lodash');
+    var evaluator = require('./evaluator');
     var clojureCompleter = require("./completions");
     var eventBus = require('./eventBus');
     var self = {};
@@ -216,6 +217,7 @@ module.exports = function () {
                 seg.clearErrorAndConsole();
                 seg.runningIndicator(true);
 
+              console.log('evel');
                 eventBus.trigger("evaluator:evaluate", {code: code, segmentID: seg.id});
             }
         };
@@ -223,6 +225,7 @@ module.exports = function () {
         // The evaluation command will fire this event. The worksheet will then send a message to the evaluator
         // to do the evaluation itself.
         addEventHandler("worksheet:evaluate", function () {
+          console.log('worksheet:eval');
             // check that a segment is active
             var seg = self.getActiveSegment();
             if (seg == null) return;
