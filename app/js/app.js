@@ -15,6 +15,7 @@ module.exports = function (worksheetParser, segment) {
   var codeDialog = require('./codeDialog');
 
   var self = {};
+  self.eventBus = eventBus;
 
   // Most importantly, the application has a worksheet! This is exposed so that the UI can bind to it, but note that
   // you should never change the worksheet directly, as this will leave the event handlers in an inconsistent state.

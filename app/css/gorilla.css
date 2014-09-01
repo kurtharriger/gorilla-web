@@ -198,3 +198,11 @@ div.CodeMirror span.CodeMirror-matchingbracket {
     border-bottom: 1px solid;
     font-weight: bold;
 }
+
+div.free.answer {
+    font-family: "Courier New";
+}
+
+.hideCodeSegments div.code {
+    display:none;
+}
