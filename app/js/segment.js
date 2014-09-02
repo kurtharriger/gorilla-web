@@ -104,6 +104,7 @@ module.exports.freeSegment = function (contents, meta) {
     self.markupVisible = ko.observable(false);
 
     self.answer = ko.observable(!!meta.answer);
+    self.pageBreak = ko.observable(!!meta.pageBreak);
 
     // The markup
     // handle null contents
@@ -119,11 +120,8 @@ module.exports.freeSegment = function (contents, meta) {
     };
 
     self.getMeta = function() {
-      var meta = "";
-      if(self.answer()) {
-        meta = ";; " + JSON.stringify({"answer": true}) + "\n";
-      }
-      return meta;
+      return ";; " + JSON.stringify({"answer": self.answer(), "pageBreak": self.pageBreak()}) + "\n";
+
     };
 
     // var mdConverter = Markdown.getSanitizingConverter();

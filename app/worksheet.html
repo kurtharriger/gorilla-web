@@ -118,7 +118,7 @@
 </script>
 
 <script type="text/html" id="free-segment-template">
-    <div class="segment free" data-bind="css: {selected: active(), answer: answer()}, attr: {id: id}, click: handleClick">
+    <div class="segment free" data-bind="css: {selected: active(), answer: answer(), pageBreak: pageBreak()}, attr: {id: id}, click: handleClick">
         <div class="segment-main">
             <div class="free-preview" data-bind="mathJaxViewer: renderedContent"></div>
             <div class="free-markup" data-bind="visible: markupVisible">

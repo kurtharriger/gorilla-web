@@ -207,3 +207,18 @@ div.free.answer {
 .hideCodeSegments div.code {
     display:none;
 }
+
+.pageBreak {
+    page-break-before: always;
+
+}
+
+@media print {
+    @page { size:8.5in 11in; margin: 1in }
+
+
+    div.free.pageBreak {
+        page-break-before: always;
+        padding-top: 0.5in;
+    }
+}

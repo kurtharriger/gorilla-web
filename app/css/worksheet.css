@@ -124,14 +124,15 @@ div.container-segment {
     }
     body {
         font-size: .7em;
+        margin: 0.5in;
     }
     div.free h1, h2, h3, h4, h5 {
         color: black;
         font-size: 1.2em;
     }
     div#contents {
-        margin: 0;
         padding: 0;
+        margin: 0;
         width: 100%;
     }
 
