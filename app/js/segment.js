@@ -65,6 +65,8 @@ module.exports.codeSegment = function (contents, consoleText, output) {
         self.active(false);
     };
 
+
+
     // serialises the segment for saving. The result is valid clojure code, marked up with some magic comments.
     self.toClojure = function () {
         var startTag = ";; @@\n";
@@ -75,8 +77,10 @@ module.exports.codeSegment = function (contents, consoleText, output) {
         var consoleEnd = "\n;; <-\n";
         var cText = "";
         var oText = "";
+
         if (self.consoleText() !== "") cText = consoleStart + utils.makeClojureComment(self.consoleText()) + consoleEnd;
         if (self.output() !== "") oText = outputStart + utils.makeClojureComment(self.output()) + outputEnd;
+
         return startTag + self.getContents() + endTag + cText + oText;
     };
 
@@ -84,18 +88,23 @@ module.exports.codeSegment = function (contents, consoleText, output) {
 };
 
 // a free segment contains markdown
-module.exports.freeSegment = function (contents) {
-  var eventBus = require('./eventBus');
+module.exports.freeSegment = function (contents, meta) {
+    var eventBus = require('./eventBus');
 
+    meta = meta || {};
     var self = {};
     self.renderTemplate = "free-segment-template";
     self.id = UUID.generate();
 
     self.type = "free";
+    self.answer = ko.observable(false);
 
     // Segment UI state
     self.active = ko.observable(false);
     self.markupVisible = ko.observable(false);
+
+    self.answer = ko.observable(!!meta.answer);
+    self.pageBreak = ko.observable(!!meta.pageBreak);
 
     // The markup
     // handle null contents
@@ -108,6 +117,11 @@ module.exports.freeSegment = function (contents) {
 
     self.getContents = function() {
         return self.content.contents();
+    };
+
+    self.getMeta = function() {
+      return ";; " + JSON.stringify({"answer": self.answer(), "pageBreak": self.pageBreak()}) + "\n";
+
     };
 
     // var mdConverter = Markdown.getSanitizingConverter();
@@ -144,7 +158,7 @@ module.exports.freeSegment = function (contents) {
     // serialises the segment for saving. The result is valid clojure code, marked up with some magic comments.
     self.toClojure = function () {
         var tag = ";; **\n";
-        return tag + utils.makeClojureComment(self.getContents()) + "\n" + tag;
+        return tag + self.getMeta() + utils.makeClojureComment(self.getContents()) + "\n" + tag;
     };
 
 

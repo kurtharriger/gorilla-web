@@ -20,6 +20,7 @@ module.exports = function () {
     // the content of the worksheet is a list of segments.
     self.segments = ko.observableArray();
 
+    self.hideCodeSegments = ko.observable(false);
 
     // serialises the worksheet for saving. The result is valid clojure code, marked up with some magic comments.
     self.toClojure = function () {
@@ -196,7 +197,10 @@ module.exports = function () {
             self.segments.splice(index, 1, newSeg);
             self.activateSegment(index, true);
         };
-
+        addEventHandler("segment:toggleAnswerClassName", function () {
+          var current = self.getActiveSegment().answer();
+          self.getActiveSegment().answer(!current);
+        });
         addEventHandler("worksheet:changeToFree", function () {
             changeActiveSegmentType("free", segment.freeSegment);
         });
@@ -288,6 +292,15 @@ module.exports = function () {
             if (seg.type == "code") {
                 seg.content.complete(clojureCompleter);
             }
+        });
+
+        addEventHandler("worksheet:hideCodeSegments", function (e, d) {
+          self.hideCodeSegments(!self.hideCodeSegments());
+        });
+
+        addEventHandler("worksheet:print", function (e, d) {
+          self.getActiveSegment().deactivate();
+          window.print();
         });
     };
 

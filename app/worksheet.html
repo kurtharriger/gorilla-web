@@ -7,6 +7,7 @@
 
 <html id="document">
 <head>
+    <link rel="stylesheet" href="css/normalize.css"/>
     <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic|Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="jslib/codemirror-3.20/lib/codemirror.css"/>
     <link rel="stylesheet" href="css/codemirror-hint.css"/>
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="css/output.css"/>
 
     <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG-full.js&delayStartupUntil=configured"></script>
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full.js&delayStartupUntil=configured"></script>
 
     <script type="text/javascript" src="_js/worksheet.js"></script>
 
@@ -33,7 +34,7 @@
 
 <div id="contents">
     <div class="segment container-segment">
-        <div class="container-children">
+        <div class="container-children" data-bind="css: {hideCodeSegments: worksheet().hideCodeSegments()}" >
         <div data-bind="template: {name: 'segment-template', foreach: worksheet().segments()}">
         </div>
         </div>
@@ -117,9 +118,9 @@
 </script>
 
 <script type="text/html" id="free-segment-template">
-    <div class="segment free" data-bind="css: {selected: active()}, attr: {id: id}, click: handleClick">
+    <div class="segment free" data-bind="css: {selected: active(), answer: answer(), pageBreak: pageBreak()}, attr: {id: id}, click: handleClick">
         <div class="segment-main">
-            <div class="free-preview" data-bind="mathJaxViewer: renderedContent, visible: !markupVisible()"></div>
+            <div class="free-preview" data-bind="mathJaxViewer: renderedContent"></div>
             <div class="free-markup" data-bind="visible: markupVisible">
                 <textarea data-bind="codemirror: content"></textarea>
             </div>

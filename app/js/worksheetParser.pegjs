@@ -10,14 +10,16 @@ worksheet = worksheetHeader seg:segmentWithBlankLine* {return seg;}
 
 lineEnd = "\n" / "\r\n"
 
+meta = ";; {" json:[^}]* "}" lineEnd { return JSON.parse("{"+json.join("")+"}"); }
+
 worksheetHeader = ";; gorilla-repl.fileformat = 1" lineEnd lineEnd
 
 segmentWithBlankLine = seg:segment lineEnd? {return seg;}
 
 segment = freeSegment / codeSegment
 
-freeSegment = freeSegmentOpenTag content:stringNoDelim? freeSegmentCloseTag
-                {return segment.freeSegment(utils.unmakeClojureComment(content));}
+freeSegment = freeSegmentOpenTag meta:meta? content:stringNoDelim? freeSegmentCloseTag
+                {return segment.freeSegment(utils.unmakeClojureComment(content), meta);}
 
 freeSegmentOpenTag = ";; **" lineEnd
 

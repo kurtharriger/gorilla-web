@@ -147,9 +147,37 @@ module.exports = (function() {
       desc: "Show possible auto-completions.",
       showInMenu: true,
       // alternative provided to workaround Firefox's idiotic unstoppable binding of ctrl+space
-      kb: ["ctrl+space", combo('g', 'a')],
+      kb: ["ctrl+space"],
       action: function () {
         eventBus.trigger("worksheet:completions");
+      }
+    },
+    {
+      name: "command:segment:toggleAnswerClassName",
+      desc: "Toggle segment answer style.",
+      showInMenu: true,
+      // alternative provided to workaround Firefox's idiotic unstoppable binding of ctrl+space
+      kb: combo('g', 'a'),
+      action: function () {
+        eventBus.trigger("segment:toggleAnswerClassName");
+      }
+    },
+    {
+      name: "command:worksheet:hideCodeSegments",
+      desc: "Show/Hide code segments.",
+      showInMenu: true,
+      kb: combo('g', 'c'),
+      action: function () {
+        eventBus.trigger("worksheet:hideCodeSegments");
+      }
+    },
+    {
+      name: "command:worksheet:print",
+      desc: "Print worksheet",
+      showInMenu: true,
+      kb: combo('g', 'p'),
+      action: function () {
+        eventBus.trigger("worksheet:print");
       }
     }
   ];

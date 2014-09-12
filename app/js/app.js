@@ -15,6 +15,7 @@ module.exports = function (worksheetParser, segment) {
   var codeDialog = require('./codeDialog');
 
   var self = {};
+  self.eventBus = eventBus;
 
   // Most importantly, the application has a worksheet! This is exposed so that the UI can bind to it, but note that
   // you should never change the worksheet directly, as this will leave the event handlers in an inconsistent state.
@@ -62,6 +63,7 @@ module.exports = function (worksheetParser, segment) {
         commandProcessor.installCommands(self.config.keymap);
         ko.applyBindings(self, document.getElementById("document"));
 
+        console.log(initialFilename);
         if (initialFilename) loadFromFile(initialFilename);
         else setBlankWorksheet();
       })
@@ -82,7 +84,11 @@ module.exports = function (worksheetParser, segment) {
         "for more commands ...\n\nIt's a good habit to run each worksheet in its own namespace: feel " +
         "free to use the declaration we've provided below if you'd like.")
     );
-    ws.segments().push(ws.segment.codeSegment("(ns " + utils.makeHipNSName() + "\n  (:require [gorilla-plot.core :as plot]))"));
+    ws.segments().push(ws.segment.codeSegment(
+        ["(ns " + utils.makeHipNSName(),
+         "(:require [gorilla-plot.core :as plot]",
+         "          [vinyasa.pull :refer [pull]]))"
+        ].join('\n')));
     self.setWorksheet(ws, "");
     // make it easier for the user to get started by highlighting the empty code segment
     eventBus.trigger("worksheet:segment-clicked", {id: self.worksheet().segments()[1].id});

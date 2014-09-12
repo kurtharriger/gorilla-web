@@ -4,6 +4,7 @@
  * gorilla-repl is licenced to you under the MIT licence. See the file LICENCE.txt for full details.
  */
 
+
 /* CSS for the Gorilla user interface. Anything required to display the worksheet itself is in worksheet.css */
 
 div.status {
@@ -197,4 +198,27 @@ div.CodeMirror span.CodeMirror-matchingbracket {
     color: #1887F1;
     border-bottom: 1px solid;
     font-weight: bold;
+}
+
+div.free.answer {
+    font-family: "Courier New";
+}
+
+.hideCodeSegments div.code {
+    display:none;
+}
+
+.pageBreak {
+    page-break-before: always;
+
+}
+
+@media print {
+    @page { size:8.5in 11in; margin: 1in }
+
+
+    div.free.pageBreak {
+        page-break-before: always;
+        padding-top: 0.5in;
+    }
 }
